@@ -11,10 +11,14 @@ import "./src/model/HistoricoAdocoes.js";
 import "./src/model/Perfil.js";
 import "./src/model/UsuarioPerfil.js";
 
+import userRouter from "./src/router/user.router.js"
+
 const app = express();
 const port = process.env.PORT || 3000;
 
 app.use(express.json());
+
+app.use("/user", userRouter);
 
 const startServer = async () => {
     try {
