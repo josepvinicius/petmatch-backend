@@ -11,7 +11,7 @@ interface UsuarioAttributes {
   data_cadastro: Date;
 }
 
-interface UsuarioCreationAttributes extends Optional<UsuarioAttributes, 'id'> {}
+interface UsuarioCreationAttributes extends Optional<UsuarioAttributes, 'id' | 'data_cadastro'> {}
 
 class Usuario extends Model<UsuarioAttributes, UsuarioCreationAttributes> implements UsuarioAttributes {
   public id!: number;
