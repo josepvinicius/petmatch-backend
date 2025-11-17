@@ -1,6 +1,7 @@
 import { DataTypes, Model } from 'sequelize';
 import type { Optional } from 'sequelize';
 import { sequelize } from '../database/db.js';
+import bcrypt from 'bcryptjs';
 
 interface UsuarioAttributes {
   id: number;
@@ -55,7 +56,19 @@ Usuario.init({
   sequelize,
   modelName: 'Usuario',
   tableName: 'USUARIO',
-  timestamps: false
+  timestamps: false,
+  hooks: {
+    beforeCreate: async (usuario: Usuario) => {
+      const salt = await bcrypt.genSalt(12);
+      usuario.senha = await bcrypt.hash(usuario.senha, salt);
+    },
+    beforeUpdate: async (usuario: Usuario) => {
+      if (usuario.changed('senha')) {
+        const salt = await bcrypt.genSalt(12);
+        usuario.senha = await bcrypt.hash(usuario.senha, salt);
+      }
+    }
+  }
 });
 
 export default Usuario;

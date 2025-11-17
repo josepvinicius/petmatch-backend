@@ -37,18 +37,28 @@ async function removeUser(req: Request, res: Response) {
 
 async function createUser(req: Request, res: Response) {
     try{
-        const { nome ,email, CPF, senha } = req.params;
+        const { nome, email, CPF, senha } = req.body;
 
-        if(!nome || !email || !CPF || senha){
-            res.status(400).send({ msg: 'Todos os campos são obrigatorios.'});
+        if(!nome || !email || !CPF || !senha){
+            return res.status(400).send({ msg: 'Todos os campos são obrigatorios.' }); 
         }
 
-        const user = await Usuario.create({ nome: nome!, email: email!, CPF: CPF!, senha: senha!})
-
+        const user = await Usuario.create({ nome, email, CPF, senha });
         
+    
+        res.status(201).send({ 
+            msg: 'Usuário criado com sucesso!',
+            user: {
+                id: user.id,
+                nome: user.nome,
+                email: user.email,
+                CPF: user.CPF,
+                data_cadastro: user.data_cadastro
+            }
+        });
     }
-    catch (error) {
-        res.status(400).send({ msg: error });
+    catch (error: any) {
+        res.status(400).send({ msg: 'Erro ao criar usuário', error: error.message });
     }
 }
 

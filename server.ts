@@ -11,7 +11,10 @@ import "./src/model/HistoricoAdocoes.js";
 import "./src/model/Perfil.js";
 import "./src/model/UsuarioPerfil.js";
 
-import userRouter from "./src/router/user.router.js"
+import userRouter from "./src/router/user.router.js";
+import authRouter from "./src/router/auth.router.js";
+import animaisRouter from "./src/router/animais.router.js";
+import doacoesRouter from "./src/router/adocoes.rouetr.js"
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -19,6 +22,9 @@ const port = process.env.PORT || 3000;
 app.use(express.json());
 
 app.use("/user", userRouter);
+app.use("/auth", authRouter);
+app.use("/animais", animaisRouter);
+app.use("/doacoes", doacoesRouter);
 
 const startServer = async () => {
     try {
