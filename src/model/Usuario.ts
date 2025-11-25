@@ -4,23 +4,23 @@ import { sequelize } from '../database/db.js';
 import bcrypt from 'bcryptjs';
 
 interface UsuarioAttributes {
-  id: number;
+  id: number | undefined;
   nome: string;
   email: string;
   CPF: string;
   senha: string;
-  data_cadastro: Date;
+  data_cadastro: Date | undefined;
 }
 
 interface UsuarioCreationAttributes extends Optional<UsuarioAttributes, 'id' | 'data_cadastro'> {}
 
 class Usuario extends Model<UsuarioAttributes, UsuarioCreationAttributes> implements UsuarioAttributes {
-  public id!: number;
-  public nome!: string;
-  public email!: string;
-  public CPF!: string;
-  public senha!: string;
-  public data_cadastro!: Date;
+  declare id: number | undefined;
+  declare nome: string;
+  declare email: string;
+  declare CPF: string;
+  declare senha: string;
+  declare data_cadastro: Date | undefined;
 }
 
 Usuario.init({
@@ -59,6 +59,7 @@ Usuario.init({
   timestamps: false,
   hooks: {
     beforeCreate: async (usuario: Usuario) => {
+      console.log(usuario)
       const salt = await bcrypt.genSalt(12);
       usuario.senha = await bcrypt.hash(usuario.senha, salt);
     },

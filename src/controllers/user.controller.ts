@@ -51,13 +51,14 @@ async function createUser(req: Request, res: Response) {
             user: {
                 id: user.id,
                 nome: user.nome,
-                email: user.email,
+                email: user.email,  
                 CPF: user.CPF,
                 data_cadastro: user.data_cadastro
             }
         });
     }
     catch (error: any) {
+        console.log(error)
         res.status(400).send({ msg: 'Erro ao criar usuário', error: error.message });
     }
 }
