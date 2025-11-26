@@ -18,9 +18,9 @@ class Perfil extends Model<PerfilAttributes, PerfilCreationAttributes> implement
 
 Perfil.init({
   id: {
-    type: DataTypes.INTEGER,
+    type: DataTypes.UUID,
+    defaultValue: DataTypes.UUIDV4,
     primaryKey: true,
-    autoIncrement: true
   },
   nome: {
     type: DataTypes.STRING(150),

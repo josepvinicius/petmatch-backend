@@ -20,9 +20,9 @@ class Contato extends Model<ContatoAttributes, ContatoCreationAttributes> implem
 
 Contato.init({
   id: {
-    type: DataTypes.INTEGER,
+    type: DataTypes.UUID,
+    defaultValue: DataTypes.UUIDV4,
     primaryKey: true,
-    autoIncrement: true
   },
   fone: {
     type: DataTypes.STRING(11),
@@ -33,7 +33,7 @@ Contato.init({
     allowNull: false
   },
   id_usuario: {
-    type: DataTypes.INTEGER,
+    type: DataTypes.UUID,
     allowNull: false
   }
 }, {

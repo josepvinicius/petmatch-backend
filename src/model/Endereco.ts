@@ -30,9 +30,9 @@ class Endereco extends Model<EnderecoAttributes, EnderecoCreationAttributes> imp
 
 Endereco.init({
   id: {
-    type: DataTypes.INTEGER,
+    type: DataTypes.UUID,
+    defaultValue: DataTypes.UUIDV4,
     primaryKey: true,
-    autoIncrement: true
   },
   logradouro: {
     type: DataTypes.STRING(150),
@@ -63,7 +63,7 @@ Endereco.init({
     allowNull: false
   },
   id_contato: {
-    type: DataTypes.INTEGER,
+    type: DataTypes.UUID,
     allowNull: false
   }
 }, {

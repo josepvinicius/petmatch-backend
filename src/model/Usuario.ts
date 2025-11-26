@@ -4,7 +4,7 @@ import { sequelize } from '../database/db.js';
 import bcrypt from 'bcryptjs';
 
 interface UsuarioAttributes {
-  id: number | undefined;
+  id: string | undefined;
   nome: string;
   email: string;
   CPF: string;
@@ -15,7 +15,7 @@ interface UsuarioAttributes {
 interface UsuarioCreationAttributes extends Optional<UsuarioAttributes, 'id' | 'data_cadastro'> {}
 
 class Usuario extends Model<UsuarioAttributes, UsuarioCreationAttributes> implements UsuarioAttributes {
-  declare id: number | undefined;
+  declare id: string | undefined;
   declare nome: string;
   declare email: string;
   declare CPF: string;
@@ -25,9 +25,9 @@ class Usuario extends Model<UsuarioAttributes, UsuarioCreationAttributes> implem
 
 Usuario.init({
   id: {
-    type: DataTypes.INTEGER,
+    type: DataTypes.UUID,
+    defaultValue: DataTypes.UUIDV4,
     primaryKey: true,
-    autoIncrement: true
   },
   nome: {
     type: DataTypes.STRING(150),

@@ -18,16 +18,16 @@ class UsuarioPerfil extends Model<UsuarioPerfilAttributes, UsuarioPerfilCreation
 
 UsuarioPerfil.init({
   id: {
-    type: DataTypes.INTEGER,
+    type: DataTypes.UUID,
+    defaultValue: DataTypes.UUIDV4,
     primaryKey: true,
-    autoIncrement: true
   },
   id_usuario: {
-    type: DataTypes.INTEGER,
+    type: DataTypes.UUID,
     allowNull: false
   },
   id_perfil: {
-    type: DataTypes.INTEGER,
+    type: DataTypes.UUID,
     allowNull: false
   }
 }, {

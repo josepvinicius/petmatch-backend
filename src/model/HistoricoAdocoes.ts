@@ -3,7 +3,7 @@ import type { Optional } from 'sequelize';
 import { sequelize } from '../database/db.js';
 
 interface HistoricoAdocoesAttributes {
-  id: number;
+  id: string;
   data_resgate: Date;
   data_adocao?: Date;
   observacoes?: string;
@@ -14,19 +14,19 @@ interface HistoricoAdocoesAttributes {
 interface HistoricoAdocoesCreationAttributes extends Optional<HistoricoAdocoesAttributes, 'id' | 'data_adocao' | 'observacoes'> {}
 
 class HistoricoAdocoes extends Model<HistoricoAdocoesAttributes, HistoricoAdocoesCreationAttributes> implements HistoricoAdocoesAttributes {
-  public id!: number;
+  public id!: string;
   public data_resgate!: Date;
-  public data_adocao!: Date;
-  public observacoes!: string;
+  public data_adocao?: Date;
+  public observacoes?: string;
   public id_usuario!: number;
   public id_animais!: number;
 }
 
 HistoricoAdocoes.init({
   id: {
-    type: DataTypes.INTEGER,
+    type: DataTypes.UUID,
+    defaultValue: DataTypes.UUIDV4,
     primaryKey: true,
-    autoIncrement: true
   },
   data_resgate: {
     type: DataTypes.DATE,
@@ -41,11 +41,11 @@ HistoricoAdocoes.init({
     allowNull: true
   },
   id_usuario: {
-    type: DataTypes.INTEGER,
+    type: DataTypes.UUID,
     allowNull: false
   },
   id_animais: {
-    type: DataTypes.INTEGER,
+    type: DataTypes.UUID,
     allowNull: false
   }
 }, {

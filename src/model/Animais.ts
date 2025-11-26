@@ -3,7 +3,7 @@ import type { Optional } from 'sequelize';
 import { sequelize } from '../database/db.js';
 
 interface AnimaisAttributes {
-  id: number;
+  id: string;
   nome: string;
   especie: string;
   faca: string;
@@ -17,7 +17,7 @@ interface AnimaisAttributes {
 interface AnimaisCreationAttributes extends Optional<AnimaisAttributes, 'id'> {}
 
 class Animais extends Model<AnimaisAttributes, AnimaisCreationAttributes> implements AnimaisAttributes {
-  public id!: number;
+  public id!: string;
   public nome!: string;
   public especie!: string;
   public faca!: string;
@@ -30,9 +30,9 @@ class Animais extends Model<AnimaisAttributes, AnimaisCreationAttributes> implem
 
 Animais.init({
   id: {
-    type: DataTypes.INTEGER,
+    type: DataTypes.UUID,
+    defaultValue: DataTypes.UUIDV4,
     primaryKey: true,
-    autoIncrement: true
   },
   nome: {
     type: DataTypes.STRING(150),
