@@ -12,6 +12,7 @@ interface AnimaisAttributes {
   porte: string;
   saude: string;
   status: string;
+  foto?: string;
 }
 
 interface AnimaisCreationAttributes extends Optional<AnimaisAttributes, 'id'> {}
@@ -26,6 +27,7 @@ class Animais extends Model<AnimaisAttributes, AnimaisCreationAttributes> implem
   public porte!: string;
   public saude!: string;
   public status!: string;
+  public foto?: string;
 }
 
 Animais.init({
@@ -65,6 +67,11 @@ Animais.init({
   status: {
     type: DataTypes.STRING(13),
     allowNull: false
+  },
+  foto: {
+    type: DataTypes.TEXT,
+    allowNull: true,
+    defaultValue: null
   }
 }, {
   sequelize,

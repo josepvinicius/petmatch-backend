@@ -13,6 +13,7 @@
   "type": "module",
   "dependencies": {
     "bcryptjs": "^3.0.3",
+    "cors": "^2.8.5",
     "dotenv": "^17.2.3",
     "express": "^5.1.0",
     "jsonwebtoken": "^9.0.2",
@@ -21,6 +22,7 @@
   },
   "devDependencies": {
     "@types/bcryptjs": "^2.4.6",
+    "@types/cors": "^2.8.19",
     "@types/express": "^5.0.5",
     "@types/jsonwebtoken": "^9.0.10",
     "@types/node": "^24.10.0",
@@ -28,5 +30,13 @@
     "tsx": "^4.20.6",
     "typescript": "^5.9.3"
   },
-  "description": ""
+  "description": "",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/josepvinicius/petmatch-backend.git"
+  },
+  "bugs": {
+    "url": "https://github.com/josepvinicius/petmatch-backend/issues"
+  },
+  "homepage": "https://github.com/josepvinicius/petmatch-backend#readme"
 }

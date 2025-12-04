@@ -10,6 +10,7 @@ export interface TokenPayload {
     id: string;       // <- não precisa ser opcional
     email: string;
     nome: string;
+    isAdmin?: boolean;
 }
 
 async function comparePassword(senha: string, hash: string): Promise<boolean> {
@@ -95,6 +96,35 @@ export class AuthController {
         }
     }
 
+    // Na classe AuthController, adicione:
+    public static async checkAdmin(req: any, res: Response) {
+        try {
+            const user = await Usuario.findByPk(req.user.id);
+
+            if (!user) {
+                return res.status(404).json({ msg: "Usuário não encontrado" });
+            }
+
+            // Lógica simples: admin é quem tem email específico
+            const isAdmin = user.email === 'admin@petmatch.com';
+
+            return res.json({
+                msg: "Status verificado",
+                isAdmin,
+                user: {
+                    id: user.id,
+                    nome: user.nome,
+                    email: user.email,
+                    isAdmin
+                }
+            });
+
+        } catch (error) {
+            console.error("Erro ao verificar admin:", error);
+            return res.status(500).json({ msg: "Erro interno" });
+        }
+    }
+
     // 🔐 Login
     public static async login(req: Request, res: Response) {
         try {
@@ -115,7 +145,8 @@ export class AuthController {
             const token = AuthController.generateToken({
                 id: usuario.id as unknown as string,
                 email: usuario.email,
-                nome: usuario.nome
+                nome: usuario.nome,
+                isAdmin: usuario.email === 'admin@petmatch.com'
             });
 
             return res.json({

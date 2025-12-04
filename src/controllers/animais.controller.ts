@@ -109,7 +109,8 @@ export class AnimaisController {
                 nascimento, 
                 porte, 
                 saude, 
-                status = 'disponível' 
+                status = 'disponível', 
+                foto
             } = req.body;
 
             // Validação dos campos obrigatórios
@@ -117,6 +118,13 @@ export class AnimaisController {
                 return res.status(400).json({
                     msg: 'Todos os campos são obrigatórios, exceto status.',
                     camposObrigatorios: ['nome', 'especie', 'faca', 'sexo', 'nascimento', 'porte', 'saude']
+                });
+            }
+
+             // Validação simples da foto (Base64)
+            if (foto && !foto.startsWith('data:image/')) {
+                return res.status(400).json({
+                    msg: 'A foto deve estar em formato Base64 válido (data:image/...)'
                 });
             }
 
@@ -128,7 +136,8 @@ export class AnimaisController {
                 nascimento: new Date(nascimento),
                 porte,
                 saude,
-                status
+                status,
+                foto: foto || null
             });
 
             res.status(201).json({
@@ -165,7 +174,8 @@ export class AnimaisController {
                 nascimento, 
                 porte, 
                 saude, 
-                status 
+                status,
+                foto 
             } = req.body;
 
             // Verificar se o animal existe
@@ -184,6 +194,7 @@ export class AnimaisController {
             if (porte) updateData.porte = porte;
             if (saude) updateData.saude = saude;
             if (status) updateData.status = status;
+            if (foto) updateData.foto = foto;
 
             // Verificar se há dados para atualizar
             if (Object.keys(updateData).length === 0) {

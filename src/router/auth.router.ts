@@ -11,6 +11,8 @@ router.post("/register", AuthController.register);
 // Rotas protegidas (requer token)
 router.get("/verify", authMiddleware, AuthController.verifyToken);
 
+router.get("/check-admin", authMiddleware, AuthController.checkAdmin);
+
 router.get("/profile", authMiddleware, AuthController.getProfile);
 
 export default router;

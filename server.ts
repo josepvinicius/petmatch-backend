@@ -1,7 +1,9 @@
 import "dotenv/config";
+import cors from 'cors';
 import express from "express";
 import { sequelize, testConnection } from "./src/database/db.js";
 import { setupAssociations } from "./src/model/associations.js";
+
 
 import "./src/model/Usuario.js";
 import "./src/model/Contato.js";
@@ -19,7 +21,18 @@ import doacoesRouter from "./src/router/adocoes.rouetr.js"
 const app = express();
 const port = process.env.PORT || 3000;
 
+const corsOptions = {
+  origin: ['http://localhost:5173', 'http://localhost:3000'],
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With'],
+  optionsSuccessStatus: 200
+};
+
+app.use(cors(corsOptions));
+
 app.use(express.json());
+
 
 app.use("/user", userRouter);
 app.use("/auth", authRouter);
