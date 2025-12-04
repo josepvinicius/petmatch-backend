@@ -4,7 +4,6 @@ import express from "express";
 import { sequelize, testConnection } from "./src/database/db.js";
 import { setupAssociations } from "./src/model/associations.js";
 
-
 import "./src/model/Usuario.js";
 import "./src/model/Contato.js";
 import "./src/model/Endereco.js";
@@ -31,8 +30,14 @@ const corsOptions = {
 
 app.use(cors(corsOptions));
 
-app.use(express.json());
+// 🔥 SOLUÇÃO: AUMENTE O LIMITE DO JSON PARSER
+app.use(express.json({ limit: '10mb' })); // ← MUDE ESTA LINHA
+app.use(express.urlencoded({ extended: true, limit: '10mb' })); // ← ADICIONE ESTA LINHA
 
+// Se estiver usando body-parser (opcional, mas recomendado)
+import bodyParser from 'body-parser';
+app.use(bodyParser.json({ limit: '10mb' }));
+app.use(bodyParser.urlencoded({ extended: true, limit: '10mb' }));
 
 app.use("/user", userRouter);
 app.use("/auth", authRouter);
@@ -77,6 +82,7 @@ const startServer = async () => {
         console.log(`🚀 Servidor rodando na porta ${port}`);
         console.log(`📊 Ambiente: ${process.env.NODE_ENV || 'development'}`);
         console.log(`🔗 Health check: http://localhost:${port}/health`);
+        console.log(`📦 Limite de payload configurado para: 10MB`);
       });
       
     } catch (error) {
