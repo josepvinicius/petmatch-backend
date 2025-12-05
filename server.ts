@@ -22,7 +22,7 @@ const port = process.env.PORT || 3000;
 
 // 🔥 CORREÇÃO DO CORS - ADICIONE SEU FRONTEND DA VERCEL
 const allowedOrigins = [
-  'https://petmatch-frontend2.vercel.app/login',
+  'https://petmatch-frontend2.vercel.app',
   'http://localhost:5173',
   'https://petmatch-backend.onrender.com'
 ];
